@@ -8,7 +8,7 @@ class TestOrderList:
     @allure.description('Проверка: в ответе возвращается список заказов')
     def test_get_orders_list_success(self):
         """Проверка успешного получения списка заказов."""
-        response = api.get_orders()
+        response = api.OrderApi.get_orders()
 
         assert response.status_code == 200
         assert "orders" in response.json(), "Ответ должен содержать список заказов"

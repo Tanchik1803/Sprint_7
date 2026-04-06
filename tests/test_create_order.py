@@ -17,7 +17,7 @@ class TestCreateOrder:
     def test_create_order_with_color_variations(self, color):
         """Проверка создания заказа с разными вариантами цвета."""
         order_info = data.order_data(color)
-        response = api.create_order(order_info)
+        response = api.OrderApi.create_order(order_info)
 
         assert response.status_code == 201, f"Ожидался код 201, получен {response.status_code}"
         assert "track" in response.json()

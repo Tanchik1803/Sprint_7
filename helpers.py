@@ -34,14 +34,14 @@ def create_login_data(courier_data):
 def get_courier_id(courier_data):
     """Получает ID курьера через авторизацию."""
     login_data = create_login_data(courier_data)
-    login_response = api.login_courier(login_data)
+    login_response = api.UserApi.login_courier(login_data)
     return login_response.json().get('id')
 
 def create_courier(register=False):
     """Создаёт данные курьера, при необходимости регистрирует в API."""
     courier_data = generate_new_courier_personal_data()
     if register:
-        api.create_courier(courier_data)
+        api.UserApi.create_courier(courier_data)
     return courier_data
 
 def delete_courier(courier_data):
@@ -49,6 +49,6 @@ def delete_courier(courier_data):
     try:
         courier_id = get_courier_id(courier_data)
         if courier_id:
-            api.delete_courier(courier_id)
+            api.UserApi.delete_courier(courier_id)
     except requests.exceptions.RequestException as error:
         print(f"Ошибка удаления курьера: {error}")

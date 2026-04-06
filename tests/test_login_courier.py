@@ -11,7 +11,7 @@ class TestLoginCourier:
     def test_login_courier_success(self, courier_for_login):
         """Проверка успешной авторизации курьера."""
         login_data = helpers.create_login_data(courier_for_login)
-        login_response = api.login_courier(login_data)
+        login_response = api.UserApi.login_courier(login_data)
 
         assert login_response.status_code == 200
         assert "id" in login_response.json(), "Ответ должен содержать ID курьера"
@@ -23,7 +23,7 @@ class TestLoginCourier:
         login_data = helpers.create_login_data(courier_for_login)
         login_data['login'] = helpers.generate_random_string(10)
         
-        login_response = api.login_courier(login_data)
+        login_response = api.UserApi.login_courier(login_data)
 
         assert login_response.status_code == 404
         assert login_response.json()["message"] == data.LOGIN_WITH_INCORRECT_CREDENTIALS_ERROR
@@ -35,7 +35,7 @@ class TestLoginCourier:
         login_data = helpers.create_login_data(courier_for_login)
         login_data['password'] = helpers.generate_random_string(10)
         
-        login_response = api.login_courier(login_data)
+        login_response = api.UserApi.login_courier(login_data)
 
         assert login_response.status_code == 404
         assert login_response.json()["message"] == data.LOGIN_WITH_INCORRECT_CREDENTIALS_ERROR
@@ -47,7 +47,7 @@ class TestLoginCourier:
         login_data = helpers.create_login_data(courier_for_login)
         login_data['login'] = ''
         
-        login_response = api.login_courier(login_data)
+        login_response = api.UserApi.login_courier(login_data)
 
         assert login_response.status_code == 400
         assert login_response.json()["message"] == data.LOGIN_WITH_EMPTY_FIELD_ERROR
@@ -59,7 +59,7 @@ class TestLoginCourier:
         login_data = helpers.create_login_data(courier_for_login)
         login_data['password'] = ''
         
-        login_response = api.login_courier(login_data)
+        login_response = api.UserApi.login_courier(login_data)
 
         assert login_response.status_code == 400
         assert login_response.json()["message"] == data.LOGIN_WITH_EMPTY_FIELD_ERROR
